@@ -10,7 +10,7 @@ public class Lista {
         cursor = null;
     }
 
-    public void aggiungi(String valore) {
+    public void aggiungi(Multa valore) {
         Nodo nuovo = new Nodo(valore);
 
         if (head == null) {
@@ -30,17 +30,17 @@ public class Lista {
         cursor = head;
     }
 
-    public String visita() {
+    public Multa visita() {
         if (cursor == null) {
             return null;
         }
 
-        String valore = cursor.value;
+        Multa valore = cursor.value;
         cursor = cursor.next;
         return valore;
     }
 
-    public boolean modifica(String vecchio, String nuovo) {
+    public boolean modifica(Multa vecchio, Multa nuovo) {
         Nodo temp = head;
 
         while (temp != null) {
@@ -54,7 +54,7 @@ public class Lista {
         return false;
     }
 
-    public boolean elimina(String valore) {
+    public boolean elimina(Multa valore) {
 
         if (head == null) {
             return false;

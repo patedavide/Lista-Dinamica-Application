@@ -23,11 +23,11 @@ public class LDinamicaController {
     @FXML
     protected void aggiungiClick() {
 
-        String valore = input.getText();
+        Multa multa = input.getText();
 
-        if (!valore.isEmpty()) {
-            lista.aggiungi(valore);
-            output.setText("Elemento aggiunto: " + valore + "\n");
+        if (!multa.isEmpty()) {
+            lista.aggiungi(multa);
+            output.setText("Elemento aggiunto: " + multa + "\n");
             input.clear();
         }
     }
@@ -38,18 +38,18 @@ public class LDinamicaController {
         output.clear();
         lista.resetIteratore();
 
-        String valore;
+        Multa multa;
 
-        while ((valore = lista.visita()) != null) {
-            output.appendText(valore + "\n");
+        while ((multa = lista.visita()) != null) {
+            output.appendText(multa + "\n");
         }
     }
 
     @FXML
     protected void modificaClick() {
 
-        String vecchio = cercaTxt.getText();
-        String nuovo = nuovoTxt.getText();
+        Multa vecchio = cercaTxt.getText();
+        Multa nuovo = nuovoTxt.getText();
 
         if (lista.modifica(vecchio, nuovo)) {
             output.setText("Elemento modificato: " + vecchio + "\n" + "Elemento nuovo: " + nuovo + "\n");
@@ -64,10 +64,10 @@ public class LDinamicaController {
     @FXML
     protected void eliminaClick() {
 
-        String valore = cercaTxt.getText();
+        Multa multa = cercaTxt.getText();
 
-        if (lista.elimina(valore)) {
-            output.setText("Elemento eliminato: " + valore + "\n");
+        if (lista.elimina(multa)) {
+            output.setText("Elemento eliminato: " + multa + "\n");
         } else {
             output.setText("Elemento non trovato.\n");
         }
@@ -78,14 +78,14 @@ public class LDinamicaController {
     @FXML
     protected void cercaClick() {
 
-        String valore = cercaTxt.getText();
+        Multa multa = cercaTxt.getText();
         boolean trovato = false;
 
         lista.resetIteratore();
-        String elemento;
+        Multa elemento;
 
         while ((elemento = lista.visita()) != null) {
-            if (elemento.equals(valore)) {
+            if (elemento.equals(multa)) {
                 output.setText("Elemento trovato: " + elemento + "\n");
                 trovato = true;
                 break;

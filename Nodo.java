@@ -2,10 +2,10 @@ package com.example.listadinamica;
 
 public class Nodo {
 
-    public String value;
+    public Multa value;
     public Nodo next;
 
-    public Nodo(String value) {
+    public Nodo(Multa value) {
         this.value = value;
         this.next = null;
     }
