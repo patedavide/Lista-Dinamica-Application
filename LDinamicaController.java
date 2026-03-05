@@ -7,71 +7,95 @@ import javafx.scene.control.TextField;
 public class LDinamicaController {
 
     @FXML
-    private TextField txtInserisci;
+    private TextField input;
 
     @FXML
-    private TextField txtCerca;
+    private TextField cercaTxt;
 
     @FXML
-    private TextField txtNuovo;
+    private TextField nuovoTxt;
 
     @FXML
-    private TextArea txtOutput;
+    private TextArea output;
 
     private Lista lista = new Lista();
 
     @FXML
-    protected void onAggiungiClick() {
+    protected void aggiungiClick() {
 
-        String valore = txtInserisci.getText();
+        String valore = input.getText();
 
         if (!valore.isEmpty()) {
             lista.aggiungi(valore);
-            txtOutput.setText("Elemento aggiunto!\n");
-            txtInserisci.clear();
+            output.setText("Elemento aggiunto: " + valore + "\n");
+            input.clear();
         }
     }
 
     @FXML
-    protected void onVisualizzaClick() {
+    protected void visualizzaClick() {
 
-        txtOutput.clear();
+        output.clear();
         lista.resetIteratore();
 
         String valore;
 
         while ((valore = lista.visita()) != null) {
-            txtOutput.appendText(valore + "\n");
+            output.appendText(valore + "\n");
         }
     }
 
     @FXML
-    protected void onModificaClick() {
+    protected void modificaClick() {
 
-        String vecchio = txtCerca.getText();
-        String nuovo = txtNuovo.getText();
+        String vecchio = cercaTxt.getText();
+        String nuovo = nuovoTxt.getText();
 
         if (lista.modifica(vecchio, nuovo)) {
-            txtOutput.setText("Modifica effettuata!\n");
+            output.setText("Elemento modificato: " + vecchio + "\n" + "Elemento nuovo: " + nuovo + "\n");
         } else {
-            txtOutput.setText("Elemento non trovato.\n");
+            output.setText("Elemento non trovato.\n");
         }
 
-        txtCerca.clear();
-        txtNuovo.clear();
+        cercaTxt.clear();
+        nuovoTxt.clear();
     }
 
     @FXML
-    protected void onEliminaClick() {
+    protected void eliminaClick() {
 
-        String valore = txtCerca.getText();
+        String valore = cercaTxt.getText();
 
         if (lista.elimina(valore)) {
-            txtOutput.setText("Elemento eliminato!\n");
+            output.setText("Elemento eliminato: " + valore + "\n");
         } else {
-            txtOutput.setText("Elemento non trovato.\n");
+            output.setText("Elemento non trovato.\n");
         }
 
-        txtCerca.clear();
+        cercaTxt.clear();
+    }
+
+    @FXML
+    protected void cercaClick() {
+
+        String valore = cercaTxt.getText();
+        boolean trovato = false;
+
+        lista.resetIteratore();
+        String elemento;
+
+        while ((elemento = lista.visita()) != null) {
+            if (elemento.equals(valore)) {
+                output.setText("Elemento trovato: " + elemento + "\n");
+                trovato = true;
+                break;
+            }
+        }
+
+        if (!trovato) {
+            output.setText("Elemento non trovato.\n");
+        }
+
+        cercaTxt.clear();
     }
 }
