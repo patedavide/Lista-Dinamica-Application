@@ -20,22 +20,35 @@ public class LDinamicaController {
 
     private Lista lista = new Lista();
 
+    private Multa creaMulta(String testo) {
+
+        String[] dati = testo.split(",");
+
+        String nominativo = dati[0];
+        String documento = dati[1];
+        float importo = Float.parseFloat(dati[2]);
+        int verbale = Integer.parseInt(dati[3]);
+
+        return new Multa(nominativo, documento, importo, verbale);
+    }
+
     @FXML
     protected void aggiungiClick() {
 
-        Multa multa = input.getText();
+        Multa multa = creaMulta(input.getText());
 
-        if (!multa.isEmpty()) {
-            lista.aggiungi(multa);
-            output.setText("Elemento aggiunto: " + multa + "\n");
-            input.clear();
-        }
+        lista.aggiungi(multa);
+
+        output.setText("Elemento aggiunto:\n" + multa);
+
+        input.clear();
     }
 
     @FXML
     protected void visualizzaClick() {
 
         output.clear();
+
         lista.resetIteratore();
 
         Multa multa;
@@ -46,56 +59,46 @@ public class LDinamicaController {
     }
 
     @FXML
-    protected void modificaClick() {
+    protected void cercaClick() {
 
-        Multa vecchio = cercaTxt.getText();
-        Multa nuovo = nuovoTxt.getText();
+        int verbale = Integer.parseInt(cercaTxt.getText());
 
-        if (lista.modifica(vecchio, nuovo)) {
-            output.setText("Elemento modificato: " + vecchio + "\n" + "Elemento nuovo: " + nuovo + "\n");
-        } else {
-            output.setText("Elemento non trovato.\n");
-        }
+        Multa trovata = lista.cerca(verbale);
+
+        if (trovata != null)
+            output.setText("Elemento trovato:\n" + trovata);
+        else
+            output.setText("Elemento non trovato");
 
         cercaTxt.clear();
-        nuovoTxt.clear();
     }
 
     @FXML
     protected void eliminaClick() {
 
-        Multa multa = cercaTxt.getText();
+        int verbale = Integer.parseInt(cercaTxt.getText());
 
-        if (lista.elimina(multa)) {
-            output.setText("Elemento eliminato: " + multa + "\n");
-        } else {
-            output.setText("Elemento non trovato.\n");
-        }
+        if (lista.elimina(verbale))
+            output.setText("Elemento eliminato");
+        else
+            output.setText("Elemento non trovato");
 
         cercaTxt.clear();
     }
 
     @FXML
-    protected void cercaClick() {
+    protected void modificaClick() {
 
-        Multa multa = cercaTxt.getText();
-        boolean trovato = false;
+        int verbale = Integer.parseInt(cercaTxt.getText());
 
-        lista.resetIteratore();
-        Multa elemento;
+        Multa nuova = creaMulta(nuovoTxt.getText());
 
-        while ((elemento = lista.visita()) != null) {
-            if (elemento.equals(multa)) {
-                output.setText("Elemento trovato: " + elemento + "\n");
-                trovato = true;
-                break;
-            }
-        }
-
-        if (!trovato) {
-            output.setText("Elemento non trovato.\n");
-        }
+        if (lista.modifica(verbale, nuova))
+            output.setText("Elemento modificato");
+        else
+            output.setText("Elemento non trovato");
 
         cercaTxt.clear();
+        nuovoTxt.clear();
     }
 }

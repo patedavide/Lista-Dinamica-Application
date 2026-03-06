@@ -11,6 +11,7 @@ public class Lista {
     }
 
     public void aggiungi(Multa valore) {
+
         Nodo nuovo = new Nodo(valore);
 
         if (head == null) {
@@ -19,6 +20,7 @@ public class Lista {
         }
 
         Nodo temp = head;
+
         while (temp.next != null) {
             temp = temp.next;
         }
@@ -31,36 +33,54 @@ public class Lista {
     }
 
     public Multa visita() {
-        if (cursor == null) {
+
+        if (cursor == null)
             return null;
-        }
 
         Multa valore = cursor.value;
         cursor = cursor.next;
+
         return valore;
     }
 
-    public boolean modifica(Multa vecchio, Multa nuovo) {
+    public Multa cerca(int verbale) {
+
         Nodo temp = head;
 
         while (temp != null) {
-            if (temp.value.equals(vecchio)) {
+
+            if (temp.value.getNumeroVerbale() == verbale)
+                return temp.value;
+
+            temp = temp.next;
+        }
+
+        return null;
+    }
+
+    public boolean modifica(int verbale, Multa nuovo) {
+
+        Nodo temp = head;
+
+        while (temp != null) {
+
+            if (temp.value.getNumeroVerbale() == verbale) {
                 temp.value = nuovo;
                 return true;
             }
+
             temp = temp.next;
         }
 
         return false;
     }
 
-    public boolean elimina(Multa valore) {
+    public boolean elimina(int verbale) {
 
-        if (head == null) {
+        if (head == null)
             return false;
-        }
 
-        if (head.value.equals(valore)) {
+        if (head.value.getNumeroVerbale() == verbale) {
             head = head.next;
             return true;
         }
@@ -68,10 +88,12 @@ public class Lista {
         Nodo temp = head;
 
         while (temp.next != null) {
-            if (temp.next.value.equals(valore)) {
+
+            if (temp.next.value.getNumeroVerbale() == verbale) {
                 temp.next = temp.next.next;
                 return true;
             }
+
             temp = temp.next;
         }
 

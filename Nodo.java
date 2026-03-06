@@ -7,6 +7,6 @@ public class Nodo {
 
     public Nodo(Multa value) {
         this.value = value;
-        this.next = null;
+        next = null;
     }
 }

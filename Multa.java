@@ -14,25 +14,29 @@ public class Multa {
         this.numeroVerbale = numeroVerbale;
     }
 
-    public String getNominativo() {
-        return nominativo;
-    }
-
-    public String getNumeroDocumento() {
-        return numeroDocumento;
-    }
-
-    public float getImporto() {
-        return importo;
-    }
-
     public int getNumeroVerbale() {
         return numeroVerbale;
     }
 
-        @Override
-    public String toString() {
-        return "Multa[" + "nominativo='" + nominativo + '\'' + ", numeroDocumento='" + numeroDocumento + '\'' + ", importo=" + importo + ", numeroVerbale=" + numeroVerbale + ']';
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) return true;
+
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+
+        Multa m = (Multa) obj;
+
+        return this.numeroVerbale == m.numeroVerbale;
     }
 
+    @Override
+    public String toString() {
+
+        return "Nominativo: " + nominativo +
+                " | Documento: " + numeroDocumento +
+                " | Importo: " + importo +
+                " | Verbale: " + numeroVerbale;
+    }
 }
